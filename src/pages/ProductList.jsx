@@ -51,11 +51,7 @@ function ProductList() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      {/* <div className="grid-container">
-        {filteredProducts.map((product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
-      </div> */}
+      
       {filteredProducts.length > 0 ? (
         <div className="grid-container">
           {filteredProducts.map((product) => (
