@@ -4,42 +4,41 @@ import './Loader.css';
 function Loader({ onComplete }) {
   const [progress, setProgress] = useState(1);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setProgress((prev) => {
-  //       if (prev >= 100) {
-  //         clearInterval(interval);
-  //         setTimeout(() => {
-  //           if (onComplete) onComplete();
-  //         }, 0);
-  //         return 100;
-  //       }
 
-  //       return prev + 1;
-  //     });
-  //   }, 10);
+  // useEffect(() => {
+  //   let progressValue = 1;
+
+  //   const interval = setInterval(() => {
+  //     progressValue += 1;
+  //     setProgress(progressValue);
+
+  //     if (progressValue >= 100) {
+  //       clearInterval(interval);
+  //       setTimeout(() => {
+  //         if (onComplete) onComplete();
+  //       }, 0);
+  //     }
+  //   }, 10); // 10ms step = 1 second total
 
   //   return () => clearInterval(interval);
   // }, [onComplete]);
 
-
   useEffect(() => {
-    let progressValue = 1;
-
-    const interval = setInterval(() => {
-      progressValue += 1;
-      setProgress(progressValue);
-
-      if (progressValue >= 100) {
+  const interval = setInterval(() => {
+    setProgress((prev) => {
+      if (prev >= 100) {
         clearInterval(interval);
-        setTimeout(() => {
-          if (onComplete) onComplete();
-        }, 0);
+        if (onComplete) onComplete();
+        return 100;
       }
-    }, 10); // 10ms step = 1 second total
+      return prev + 1;
+    });
+  }, 10); // slower updates (every 20ms instead of 10ms)
 
-    return () => clearInterval(interval);
-  }, [onComplete]);
+  return () => clearInterval(interval);
+}, [onComplete]);
+
+
 
 
   return (
